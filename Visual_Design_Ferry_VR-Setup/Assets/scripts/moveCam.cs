@@ -12,7 +12,7 @@ public class moveCam : MonoBehaviour
     {
         RaycastHit hit;
         Debug.DrawRay(rightController.position, rightController.TransformDirection(Vector3.forward) * 10, Color.green);
-        
+        print(OVRInput.Axis1D.SecondaryIndexTrigger);
         if (Physics.Raycast(rightController.position, rightController.TransformDirection(Vector3.forward), out hit))
         {
             marker.SetActive(true);

@@ -114,8 +114,8 @@ Material:
     - _metalic: 1
     - _normal_strength: 0.85
     - _smoothness: 0.93
-    - _speed: 0.4
-    - _tiling: 34
+    - _speed: 0.5
+    - _tiling: 1999
     m_Colors:
     - _DoubleSidedConstants: {r: 1, g: 1, b: -1, a: 0}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
