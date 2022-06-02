@@ -5952,7 +5952,7 @@ MonoBehaviour:
   - {fileID: 8926484042661614993}
   m_ExposedName: Y Border
   m_Exposed: 1
-  m_Order: 3
+  m_Order: 2
   m_Category: 
   m_Min:
     m_Type:
