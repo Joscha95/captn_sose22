@@ -255,11 +255,11 @@ MonoBehaviour:
     m_OverrideState: 1
     m_Value: 1
   threshold:
-    m_OverrideState: 0
-    m_Value: 0
+    m_OverrideState: 1
+    m_Value: 1
   intensity:
     m_OverrideState: 1
-    m_Value: 0.2
+    m_Value: 0.449
   scatter:
     m_OverrideState: 0
     m_Value: 0.7
@@ -599,19 +599,19 @@ MonoBehaviour:
   active: 1
   maxShadowDistance:
     m_OverrideState: 1
-    m_Value: 150
+    m_Value: 276.9
   directionalTransmissionMultiplier:
     m_OverrideState: 0
     m_Value: 1
   cascadeShadowSplitCount:
     m_OverrideState: 1
-    m_Value: 2
+    m_Value: 3
   cascadeShadowSplit0:
     m_OverrideState: 1
-    m_Value: 0.43333334
+    m_Value: 0.26363307
   cascadeShadowSplit1:
-    m_OverrideState: 0
-    m_Value: 0.15
+    m_OverrideState: 1
+    m_Value: 0.49115205
   cascadeShadowSplit2:
     m_OverrideState: 0
     m_Value: 0.3

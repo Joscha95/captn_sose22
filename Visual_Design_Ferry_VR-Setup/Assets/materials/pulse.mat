@@ -45,11 +45,11 @@ Material:
     m_Floats:
     - _AddPrecomputedVelocity: 0
     - _AlphaCutoffEnable: 0
-    - _AlphaDstBlend: 1
+    - _AlphaDstBlend: 10
     - _AlphaSrcBlend: 1
     - _AlphaToMask: 0
     - _AlphaToMaskInspectorValue: 0
-    - _BlendMode: 1
+    - _BlendMode: 0
     - _ConservativeDepthOffsetEnable: 0
     - _CullMode: 1
     - _CullModeForward: 1
@@ -57,7 +57,7 @@ Material:
     - _DoubleSidedEnable: 0
     - _DoubleSidedGIMode: 0
     - _DoubleSidedNormalMode: 2
-    - _DstBlend: 1
+    - _DstBlend: 10
     - _EnableBlendModePreserveSpecularLighting: 0
     - _EnableFogOnTransparent: 1
     - _OpaqueCullMode: 2
@@ -90,10 +90,10 @@ Material:
     - _frequency: 33.4
     - _speed: -0.1
     m_Colors:
-    - _Color: {r: 0.7762966, g: 0.9811321, b: 0.29156283, a: 0}
+    - _Color: {r: 0, g: 0, b: 0, a: 1}
     - _DoubleSidedConstants: {r: 1, g: 1, b: -1, a: 0}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
-    - _fade: {r: 0.08, g: 0.68, b: 0, a: 0}
+    - _fade: {r: 0.07, g: 0.08, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &8368609444196292623
 MonoBehaviour:
