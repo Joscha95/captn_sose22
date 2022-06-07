@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class smoothorbit : MonoBehaviour
 {
-    public Transform camera;
+    public Transform cam;
     public float distance = 2.0f;
     public float xSpeed = 20.0f;
     public float ySpeed = 20.0f;
@@ -19,7 +19,26 @@ public class smoothorbit : MonoBehaviour
     float velocityX = 0.0f;
     float velocityY = 0.0f;
     float velocityZ = 0.0f;
+    bool inTransition = false;
+    float smoothtime = 0;
+    float duration = 100;
+    float time = 0;
+    Vector3 oldPosCam, oldPos, targPos,targPosCam;
+    Quaternion oldRot, targRot;
     Vector3 zoom = new Vector3();
+
+    [System.Serializable]
+    public struct TopicCameras
+    {
+        public Topics topic;
+        public Transform cam;
+    }
+
+    [Space(50)]
+    public AnimationCurve smoothcurve;
+    public List<TopicCameras> topicCameras;
+
+
     // Use this for initialization
     void Start()
     {
@@ -29,38 +48,47 @@ public class smoothorbit : MonoBehaviour
 
         zoom.z = distance;
 
+        GameManager.Instance.OnTopicChange += onTopicChange; 
+
     }
     void LateUpdate()
+    {
+        if (inTransition)
+        {
+            transitionToTarget();
+        }
+        else
+        {
+            mouseControl();
+        }
+        
+    }
+
+    void mouseControl()
     {
         if (Input.GetMouseButton(0))
         {
             velocityX += xSpeed * Input.GetAxis("Mouse X") * distance * 0.02f;
             velocityY += ySpeed * Input.GetAxis("Mouse Y") * 0.02f;
         }
-        rotationYAxis += velocityX;
+
+        rotationYAxis += velocityX; 
         rotationXAxis -= velocityY;
         rotationXAxis = ClampAngle(rotationXAxis, yMinLimit, yMaxLimit);
         Quaternion fromRotation = Quaternion.Euler(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y, 0);
         Quaternion toRotation = Quaternion.Euler(rotationXAxis, rotationYAxis, 0);
         Quaternion rotation = toRotation;
 
-        velocityZ += Input.GetAxis("Mouse ScrollWheel")*zSpeed;
+        velocityZ += Input.GetAxis("Mouse ScrollWheel") * zSpeed;
         zoom.z = velocityZ;
-        
+
         GameManager.Instance.setXAngle(rotationXAxis);
 
-        //distance = Mathf.Clamp(distance - Input.GetAxis("Mouse ScrollWheel") * 5, distanceMin, distanceMax);
-        //RaycastHit hit;
-        //if (Physics.Linecast(target.position, transform.position, out hit))
-        //{
-        //distance -= hit.distance;
-        //}
-        //Vector3 negDistance = new Vector3(0.0f, 0.0f, -distance);
-        //Vector3 position = rotation * negDistance + target.position;
-        camera.Translate(zoom, Space.Self);
+        cam.Translate(zoom, Space.Self);
 
         transform.rotation = rotation;
-        //transform.position = position;
+        GameManager.Instance.setYAngle(transform.eulerAngles.y);
+
         velocityX = Mathf.Lerp(velocityX, 0, Time.deltaTime * smoothTime);
         velocityY = Mathf.Lerp(velocityY, 0, Time.deltaTime * smoothTime);
         velocityZ = Mathf.Lerp(velocityZ, 0, Time.deltaTime * smoothTime);
@@ -72,5 +100,50 @@ public class smoothorbit : MonoBehaviour
         if (angle > 360F)
             angle -= 360F;
         return Mathf.Clamp(angle, min, max);
+    }
+
+    void onTopicChange(Topics newTopic)
+    {
+        
+
+        if (topicCameras.Exists(c => c.topic == newTopic))
+        {
+            oldPosCam = cam.localPosition;
+            oldRot = transform.rotation;
+            oldPos = transform.position;
+            Transform targTrans = topicCameras.Find(c => c.topic == newTopic).cam;
+            targPosCam = targTrans.GetChild(0).localPosition;
+            targPos = targTrans.localPosition;
+            targRot = targTrans.localRotation;
+            inTransition = true;
+            time = 0;
+        }
+        else if (newTopic==Topics.NONE && Vector3.Distance(transform.localPosition,Vector3.zero)>.1f)
+        {
+            //reset Camera
+            oldPosCam = cam.localPosition;
+            targPosCam = cam.localPosition;
+            oldRot = transform.rotation;
+            targRot = transform.localRotation;
+            oldPos = transform.position;
+            targPos = Vector3.zero;
+            inTransition = true;
+            time = 0;
+        }
+    }
+
+    void transitionToTarget()
+    {
+        cam.localPosition = Vector3.Lerp(oldPosCam, targPosCam, smoothcurve.Evaluate(time/duration));
+        transform.rotation = Quaternion.Lerp(oldRot, targRot, smoothcurve.Evaluate(time / duration));
+        transform.localPosition = Vector3.Lerp(oldPos, targPos, smoothcurve.Evaluate(time / duration));
+        time++;
+        if(time>=duration)
+        {
+            inTransition = false;
+            rotationXAxis = transform.localEulerAngles.x;
+            rotationYAxis = transform.localEulerAngles.y;
+            time = 0;
+        }
     }
 }
