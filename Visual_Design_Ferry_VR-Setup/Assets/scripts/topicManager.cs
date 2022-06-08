@@ -12,6 +12,8 @@ public class topicManager : MonoBehaviour, ITopicController
 
     bool visible = false;
     bool active = false;
+
+    public GameObject[] txts;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,6 +22,7 @@ public class topicManager : MonoBehaviour, ITopicController
         GameManager.Instance.OnTopicChange += onTopicChange;
 
         marker.GetComponent<topicMarker>()._topicmanager = this;
+        ExtendStart();
     }
 
     void onOrbitViewLevelChange(OrbitViewLevel newVal)
@@ -72,6 +75,12 @@ public class topicManager : MonoBehaviour, ITopicController
     public void Activate() 
     {
         marker.GetComponent<topicMarker>().Hide();
+
+        foreach (var txt in txts)
+        {
+            txt.SetActive(true);
+        }
+
         ExtendActivate();
     }
 
@@ -80,10 +89,17 @@ public class topicManager : MonoBehaviour, ITopicController
     public void Deactivate() 
     {
         marker.SetActive(visible);
+
+        foreach (var txt in txts)
+        {
+            txt.SetActive(false);
+        }
+
         ExtendDeactivate();
     }
 
     protected virtual void ExtendDeactivate() { }
+    protected virtual void ExtendStart() { }
 
 
     public void Reset()

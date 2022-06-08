@@ -27,17 +27,16 @@ Material:
   m_Shader: {fileID: -6465566751694194690, guid: 8e22f253b1e6ed14b8ed9e852e030695,
     type: 3}
   m_ValidKeywords:
-  - _ENABLE_FOG_ON_TRANSPARENT
-  - _SURFACE_TYPE_TRANSPARENT
+  - _ALPHATEST_ON
   m_InvalidKeywords:
   - _DOUBLESIDED_ON
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 1
-  m_CustomRenderQueue: 3000
+  m_CustomRenderQueue: 2450
   stringTagMap:
     MotionVector: User
-    RenderType: Transparent
+    RenderType: TransparentCutout
   disabledShaderPasses:
   - TransparentDepthPrepass
   - TransparentDepthPostpass
@@ -46,6 +45,10 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _Texture2D:
+        m_Texture: {fileID: 2800000, guid: dc6883fd199945b4980673605320ef4c, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -61,8 +64,8 @@ Material:
     m_Ints: []
     m_Floats:
     - _AddPrecomputedVelocity: 0
-    - _AlphaCutoffEnable: 0
-    - _AlphaDstBlend: 10
+    - _AlphaCutoffEnable: 1
+    - _AlphaDstBlend: 0
     - _AlphaSrcBlend: 1
     - _AlphaToMask: 0
     - _AlphaToMaskInspectorValue: 0
@@ -74,12 +77,12 @@ Material:
     - _DoubleSidedEnable: 1
     - _DoubleSidedGIMode: 0
     - _DoubleSidedNormalMode: 2
-    - _DstBlend: 10
+    - _DstBlend: 0
     - _EnableBlendModePreserveSpecularLighting: 0
     - _EnableFogOnTransparent: 1
     - _Float: 0.8
     - _OpaqueCullMode: 2
-    - _RenderQueueType: 4
+    - _RenderQueueType: 1
     - _SrcBlend: 1
     - _StencilRef: 0
     - _StencilRefDepth: 0
@@ -91,7 +94,7 @@ Material:
     - _StencilWriteMaskDistortionVec: 4
     - _StencilWriteMaskGBuffer: 14
     - _StencilWriteMaskMV: 40
-    - _SurfaceType: 1
+    - _SurfaceType: 0
     - _Thickenss: 0.45
     - _TransparentBackfaceEnable: 0
     - _TransparentCullMode: 2
@@ -101,16 +104,16 @@ Material:
     - _TransparentWritingMotionVec: 0
     - _TransparentZWrite: 0
     - _UseShadowThreshold: 0
-    - _Y_Cutoff: -38.3
-    - _ZTestDepthEqualForOpaque: 8
-    - _ZTestGBuffer: 4
+    - _Y_Cutoff: -39.02
+    - _ZTestDepthEqualForOpaque: 3
+    - _ZTestGBuffer: 3
     - _ZTestTransparent: 8
-    - _ZWrite: 0
-    - _angle: -14.67
+    - _ZWrite: 1
+    - _angle: -16.64
     - _fadeIn: 0
     - _minAlpha: 0.12
     m_Colors:
-    - _Color: {r: 0.5849056, g: 0.5849056, b: 0.5849056, a: 0.5529412}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _DoubleSidedConstants: {r: 1, g: 1, b: -1, a: 0}
     - _Emission: {r: 785404, g: 785404, b: 785404, a: 0}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}

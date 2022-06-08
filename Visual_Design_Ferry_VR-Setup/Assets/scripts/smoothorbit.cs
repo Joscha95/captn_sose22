@@ -21,7 +21,7 @@ public class smoothorbit : MonoBehaviour
     float velocityZ = 0.0f;
     bool inTransition = false;
     float smoothtime = 0;
-    float duration = 100;
+    public float duration = 200;
     float time = 0;
     Vector3 oldPosCam, oldPos, targPos,targPosCam;
     Quaternion oldRot, targRot;
@@ -117,6 +117,7 @@ public class smoothorbit : MonoBehaviour
             targRot = targTrans.localRotation;
             inTransition = true;
             time = 0;
+            velocityX = velocityY = velocityZ = 0;
         }
         else if (newTopic==Topics.NONE && Vector3.Distance(transform.localPosition,Vector3.zero)>.1f)
         {
@@ -129,15 +130,17 @@ public class smoothorbit : MonoBehaviour
             targPos = Vector3.zero;
             inTransition = true;
             time = 0;
+
+            velocityX = velocityY = velocityZ = 0;
         }
     }
 
     void transitionToTarget()
     {
-        cam.localPosition = Vector3.Lerp(oldPosCam, targPosCam, smoothcurve.Evaluate(time/duration));
+        cam.localPosition = Vector3.Lerp(oldPosCam, targPosCam, smoothcurve.Evaluate(time / duration));
         transform.rotation = Quaternion.Lerp(oldRot, targRot, smoothcurve.Evaluate(time / duration));
         transform.localPosition = Vector3.Lerp(oldPos, targPos, smoothcurve.Evaluate(time / duration));
-        time++;
+        time+=Time.deltaTime*100;
         if(time>=duration)
         {
             inTransition = false;

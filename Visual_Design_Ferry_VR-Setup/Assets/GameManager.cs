@@ -5,7 +5,7 @@ using Cinemachine;
 using GD.MinMaxSlider;
 
 public enum States { TOP, ORBIT };
-public enum Topics {NONE, COMMUNICATION, lIDAR, DRIVETRAIN, BATTERY, RADAR, AIR };
+public enum Topics {NONE, COMMUNICATION, lIDAR, DRIVETRAIN, SONAR, RADAR, AIR };
 public enum OrbitViewLevel { TOP, MIDDLE, BOTTOM };
 public enum OrbitViewQuarter { Q1, Q2, Q3, Q4 };
 
@@ -17,6 +17,8 @@ public class GameManager : MonoBehaviour
     float yAngle = 0;
 
     public GameObject closeBtn;
+
+    public AnimationCurve smoothcurve;
 
     public static GameManager Instance { get; private set; }
 
